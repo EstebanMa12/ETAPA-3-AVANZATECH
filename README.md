@@ -1,14 +1,14 @@
 
-# ETAPA 2 - Python
+# ETAPA 3 - PROGRAMACIÓN ORIENTADA A OBJETOS (-P-O-O-)
 
-Para participar de este repositorio es importante que se cree una nueva rama con su nombre y ahí se almacenará su progreso en la Etapa-2 de Avanzatech
-Para crear una nueva rama y almacenar su progreso en la Etapa-2 de Avanzatech, siga estos pasos:
+Para participar de este repositorio es importante que se cree una nueva rama con su nombre y ahí se almacenará su progreso en la Etapa-3 de Avanzatech
+Para crear una nueva rama y almacenar su progreso en la Etapa-3 de Avanzatech, siga estos pasos:
 
 Cambia el directorio de trabajo actual a la ubicación en donde quieres clonar el directorio.
 
 Clone este repositorio en su máquina local utilizando el siguiente comando:
 
-`git clone https://github.com/EstebanMa12/ETAPA-2-AVANZATECH.git` 
+`git clone git@github.com:EstebanMa12/ETAPA-3-AVANZATECH.git` 
 
 Navegue al directorio del repositorio clonado:
 
