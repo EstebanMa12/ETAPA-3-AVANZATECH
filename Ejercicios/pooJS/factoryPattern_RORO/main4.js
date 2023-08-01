@@ -56,6 +56,7 @@ function requiredParam(param) { // 👈👈
     throw new Error(param + " es obligatorio"); // Este es el mensaje de error generado
     }
 
+
 function createStudent({
     name = requiredParam('name'),
     email=requiredParam('email'),

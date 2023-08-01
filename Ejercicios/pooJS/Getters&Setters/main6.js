@@ -13,10 +13,7 @@ function deepCopy(subject) {
 //dentro de sta funcion sucedera todo,el copysubject guardara los datos, este esta esperando a saber si los datos son objetos,arrays u otras cosas como strings
     const subjectIsArray = esUnArray(subject);
     const subjectIsObject = isObject(subject);
-
 //con las constantes subjectIsArray,   subjectIsObject trabajere los datos,  estas son las encargadas de llamar a  las funciones que hicimos fuera de la funcion deepCopy.
-  
-
   if(subjectIsArray) {
         copySubject = [];
     } else if(subjectIsObject) {
@@ -24,7 +21,6 @@ function deepCopy(subject) {
     } else {
         return subject;
     }
-
     //2da parte del algoritmo
     for(key in subject) {
     //Creamos un bucle for, este bucle (a in b)se puede ejecutar en una estructura de datos como arrays, objetos. Este loop signfica que el elemento a pasara por TODA la estructura de datos de b, y claro, dependieno la posicion de a,este tendra el valor de donde este parado encima. ejemplo: 
@@ -56,6 +52,32 @@ function requiredParam(param) { // 👈👈
     throw new Error(param + " es obligatorio"); // Este es el mensaje de error generado
     }
 
+function createLearningPath({
+    name = requiredParam('name'),
+    courses=[]
+}) {
+    const private ={
+        "_name": name,
+        "_courses":courses
+    };
+    const public ={
+        get name(){
+            return private["_name"]
+        },
+        set name(newName){
+            if(newName.length !=0){
+                private["_name"]=newName;
+            }else{
+                console.warn("Tu nombre debe tener al menos un caracter")
+            }
+        },
+        get courses(){
+            return private["_courses"]
+        },
+    };
+    return public
+}
+
 function createStudent({
     name = requiredParam('name'),
     email=requiredParam('email'),
@@ -68,13 +90,13 @@ function createStudent({
 }={}){
     const privateAtributos = {
         "_name": name,
-    }
+        "_learningPaths":learningPaths,
+    };
     const publicAtributos = {
         // El resto de atributos serán públicos:
         email,
         age,
         approvedCourses,
-        learningPaths,
         socialMedia: {
             twitter,
             instagram,
@@ -90,12 +112,25 @@ function createStudent({
                 console.warn("Tu nombre debe tener al menos un caracter")
             }
         },
+        get learningPaths() { // 👈👈
+			return privateAtributos["_learningPaths"];
+		},
+        set learningPaths(newLP){
+            if(!newLP.name){
+                console.warn("Tu LP no tiene la propiedad name");
+                return
+            }
+            if (!newLP.courses) {
+                console.warn("Tu LP no tiene la propiedad courses");
+                return
+            }
+            if (!esUnArray(newLP.courses)) {
+                console.warn("Tu LP no es una lista");
+                return
+            }
+            privateAtributos["_learningPaths"].push(newLP);
+        }
         };
-        /* Object.defineProperty(public,"readName",{
-            writable: false,
-            configurable:false,
-        }); */
-    
         return publicAtributos ;
     }
 const Esteban = createStudent({
@@ -103,5 +138,3 @@ const Esteban = createStudent({
     age: 23,
     email: 'daniel@hotmail.com',
 });
-
-const max = createStudent({name:"max"})
