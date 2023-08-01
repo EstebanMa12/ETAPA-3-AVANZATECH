@@ -1,9 +1,9 @@
-console.log('Conexión echa con main6.js');
+console.log('Hola desde instance Of');
 
 function isObject(subject) {
     return typeof subject == "object"
 }
-function esUnArray(subject) {
+function isArray(subject) {
     return Array.isArray(subject);
 }
 //estas 2 funciones son funciones de validacion de datos, estan seran llamads y se les pasaran un parametro, la mayoria de datos se puede validar con typeof, ergo, los arrays son los unicos que tienen un metodo espacial = Array.isArray(objetoAsaberSiEsUnArray)
@@ -52,33 +52,15 @@ function requiredParam(param) { // 👈👈
     throw new Error(param + " es obligatorio"); // Este es el mensaje de error generado
     }
 
-function createLearningPath({
+function LearningPath({
     name = requiredParam('name'),
     courses=[]
 }) {
-    const private ={
-        "_name": name,
-        "_courses":courses
-    };
-    const public ={
-        get name(){
-            return private["_name"]
-        },
-        set name(newName){
-            if(newName.length !=0){
-                private["_name"]=newName;
-            }else{
-                console.warn("Tu nombre debe tener al menos un caracter")
-            }
-        },
-        get courses(){
-            return private["_courses"]
-        },
-    };
-    return public
+    this.name=name;
+    this.courses=courses;
 }
 
-function createStudent({
+function Student({
     name = requiredParam('name'),
     email=requiredParam('email'),
     age,
@@ -88,52 +70,30 @@ function createStudent({
     approvedCourses=[],
     learningPaths=[],
 }={}){
-    const privateAtributos = {
-        "_name": name,
-        "_learningPaths":learningPaths,
-    };
-    const publicAtributos = {
-        // El resto de atributos serán públicos:
-        email,
-        age,
-        approvedCourses,
-        socialMedia: {
-            twitter,
-            instagram,
-            facebook,
-        },
-        get name(){
-            return privateAtributos["_name"]
-        },
-        set name(newName){
-            if(newName.length !=0){
-                privateAtributos["_name"]=newName;
-            }else{
-                console.warn("Tu nombre debe tener al menos un caracter")
-            }
-        },
-        get learningPaths() { // 👈👈
-			return privateAtributos["_learningPaths"];
-		},
-        set learningPaths(newLP){
-            if(!newLP.name){
-                console.warn("Tu LP no tiene la propiedad name");
-                return
-            }
-            if (!newLP.courses) {
-                console.warn("Tu LP no tiene la propiedad courses");
-                return
-            }
-            if (!esUnArray(newLP.courses)) {
-                console.warn("Tu LP no es una lista");
-                return
-            }
-            privateAtributos["_learningPaths"].push(newLP);
-        }
-        };
-        return publicAtributos ;
+    if(!isArray(learningPaths)){
+        this.learningPaths=[];
+        console.warn('LearningPath no es un array');
+        return
     }
-const Esteban = createStudent({
+
+    for (let learningPath of learningPaths){
+        if (!learningPath instanceof LearningPath){
+            console.warn('No es un verdadero LearningPath');
+            return
+        }else{
+            this.learningPaths.push(learningPath);
+        }
+    }
+    this.name = name;
+    this.email=email;
+    this.age=age;
+    this.approvedCourses=approvedCourses;
+    this.learningPaths=learningPaths;
+    this.socialMedia ={
+        twitter,instagram,facebook
+    }
+    }
+const Esteban = new Student({
     name: "Esteban",
     age: 23,
     email: 'daniel@hotmail.com',
