@@ -1,4 +1,4 @@
-console.log('Conexión echa con main3.js');
+console.log('Conexión echa con main4.js');
 
 function isObject(subject) {
     return typeof subject == "object"
@@ -52,20 +52,38 @@ function deepCopy(subject) {
     // Y al final de todo, la funcion debe devolver algo,verdad? en este caso, quien es el que almaceno todos los datos de el objeto que copiamos? el copySubject, bien, ese es quien retornamos.
     } 
 
-const studentBase={
-    name:undefined,
-    email:undefined,
-    age:undefined,
-    approvedCourses:undefined,
-    learningPaths:undefined,
-    socialMedia:{
-        twitter:undefined,
-        instagram:undefined,
-        facebook:undefined,
-    },
-};
+function requiredParam(param) { // 👈👈
+    throw new Error(param + " es obligatorio"); // Este es el mensaje de error generado
+    }
 
+function createStudent({
+    name = requiredParam('name'),
+    email=requiredParam('email'),
+    age,
+    twitter,
+    instagram,
+    facebook,
+    approvedCourses=[],
+    learningPaths=[],
+}={}){
+    return{
+        name,
+        email,
+        age,
+        approvedCourses,
+        learningPaths,
+        socialMedia:{
+            twitter,
+            instagram,
+            facebook,
+        }
 
-const Esteban =structuredClone(studentBase)
+    }
+}
+const Esteban = createStudent({
+    name: "Esteban",
+    age: 23,
+    email: 'daniel@hotmail.com',
+});
 
-const Perensejito = deepCopy(studentBase)
+const max = createStudent({name:"max"})
