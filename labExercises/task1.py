@@ -56,5 +56,72 @@ class Undergraduate(Student):
             del self.books[bookName]
 
 if __name__=="__main__":
+    roles= {1:"tutor",2:"estudiante de postdoctorado", 3:"estudiante de pregrado"}
+    print(f"{'-'*60}BIENVENIDO{'-'*60}")
+    print(f""" {' '*40}Este es el sistema de bases de datos de la Universidad de Antioquía \n
+          {' '*40}Estas son las acciones que puede realizar \n
+          {' '*40}1) Ingresar como tutor\n
+          {' '*40}2) Ingresar como estudiante de Postdoctorado\n
+          {' '*40}3) ingresar como estudiante de Pregrado \n
+          {' '*40}4) Salir""")
+    rol= int(input("Ingrese el número de su rol: \n"))
+    if rol:
+        print(f'Bienvenido, ha ingresado como {roles[rol]}')
+        if rol==1:
+            print("Por favor ingrese sesión")
+            nombre=input("Nombre: ")
+            edad=int(input("Edad: "))
+            contact=input("Detalles de contacto: ")
+            lecturerID=int(input("Ingrese su ID: "))
+            lecturer= Lecturer(nombre,edad,contact,lecturerID)
+            accion= int(input(""" Digite el número correspondiente a la acción que desea realizar\n
+                              1) Actualizar modulos\n
+                              2) Añadir estudiantes a su lista\n """))
+            if accion==1:
+                modulo=input("Ingrese el modulo que desea ingresar: ")
+                lecturer.insertModule(modulo)
+            elif accion==2:
+                estudiante=input("Ingrese el estudiantes que desea agregar: ")
+                lecturer.insertPos(estudiante)
+
+        elif rol==2:
+            print("Por favor ingrese sesión")
+            nombre=input("Nombre: ")
+            edad=int(input("Edad: "))
+            contact=input("Detalles de contacto: ")
+            studentID=int(input("Ingrese su ID: "))
+            year=int(input("Ingrese el año de ingreso: "))
+            tutor= input("Ingrese su tutor: ")
+            postStudent: Postgraduate(nombre,edad,contact,studentID,year,tutor)
+            accion= int(input(""" Digite el número correspondiente a la acción que desea realizar\n
+                              1) Actualizar titulos que se han publicado\n
+                              2) Ingresar laboratorios de investigación\n
+                               """))
+            if accion==1:
+                modulo=input("Ingrese el titulo que desea ingresar: ")
+                postStudent.insertPaper(modulo)
+            elif accion==2:
+                laboratorio=input("Ingrese el laboratorio de investigación que desea agregar: ")
+                postStudent.insertLab(laboratorio)
+        elif rol==3:
+            print("Por favor ingrese sesión")
+            nombre=input("Nombre: ")
+            edad=int(input("Edad: "))
+            contact=input("Detalles de contacto: ")
+            studentID=int(input("Ingrese su ID: "))
+            year=int(input("Ingrese el año de ingreso: "))
+            tutor= input("Ingrese su tutor: ")
+            undergraduateStudent: Undergraduate(nombre,edad,contact,studentID,year,tutor)
+            accion= int(input(""" Digite el número correspondiente a la acción que desea realizar\n
+                              1) Ingresar libros\n
+                              2) Eliminar libros\n """))
+            if accion==1:
+                bookName=input("Ingrese el titulo del libro que desea ingresar: ")
+                dueDate= input("Ingrese la fecha de vencimiento")
+                undergraduateStudent.borrowBook(bookName,dueDate)
+            elif accion==2:
+                bookName=input("Ingrese el titulo del libro que desea devolver: ")
+                undergraduateStudent.returnBook(bookName)
+        elif rol==4:
+            pass
     pass
-    
