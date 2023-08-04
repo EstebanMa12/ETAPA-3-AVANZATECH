@@ -53,7 +53,7 @@ class Person:
         ########################################################################
         # Code start
         ########################################################################
-
+        return int("".join(f'{random.randint(0,9)}' for a in range(length))) 
         ########################################################################
         # Code end
         ########################################################################
@@ -75,17 +75,18 @@ class Person:
         # Code start
         ########################################################################
         # remove code from current location:
-
+        self.loc.remove_person(self.unique_code)
         # move
-
+        self.loc= new_location
         # add unique code to new location:
-
+        self.loc.add_person(self.unique_code)
         ########################################################################
         # Code end
         ########################################################################
 
         # check to see who is here
         self.register_contacts()
+        print(f"Esta es la gente en {new_location.name} => {new_location.people_present}")
 
 
     def register_contacts(self):
@@ -94,7 +95,8 @@ class Person:
         ########################################################################
         # Code start
         ########################################################################
-
+        for people in self.loc.people_present:
+            self.contact_list.add(people)
         ########################################################################
         # Code end
         ########################################################################
